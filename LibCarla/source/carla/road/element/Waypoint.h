@@ -21,6 +21,8 @@ namespace element {
 
     SectionId section_id = 0u;
 
+    GeometryId geometry_id = 0;
+
     LaneId lane_id = 0;
 
     double s = 0.0;
@@ -40,7 +42,7 @@ namespace std {
     using result_type = uint64_t;
 
     /// Generates an unique id for @a waypoint based on its road_id, lane_id,
-    /// section_id, and "s" offset. The "s" offset is truncated to half
+    /// section_id, geometry_id and "s" offset. The "s" offset is truncated to half
     /// centimetre precision.
     result_type operator()(const argument_type &waypoint) const;
 

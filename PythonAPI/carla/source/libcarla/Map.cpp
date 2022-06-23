@@ -193,6 +193,7 @@ void export_map() {
     .add_property("lane_width", &cc::Waypoint::GetLaneWidth)
     .add_property("road_id", &cc::Waypoint::GetRoadId)
     .add_property("section_id", &cc::Waypoint::GetSectionId)
+    .add_property("geometry_id", &cc::Waypoint::GetGeometryId)
     .add_property("lane_id", &cc::Waypoint::GetLaneId)
     .add_property("s", &cc::Waypoint::GetDistance)
     .add_property("junction_id", &cc::Waypoint::GetJunctionId)

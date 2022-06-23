@@ -47,6 +47,10 @@ namespace client {
       return _waypoint.section_id;
     }
 
+    auto GetGeometryId() const {
+      return _waypoint.geometry_id;
+    }
+
     auto GetLaneId() const {
       return _waypoint.lane_id;
     }

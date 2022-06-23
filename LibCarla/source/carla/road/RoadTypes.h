@@ -20,6 +20,8 @@ namespace road {
 
   using SectionId = uint32_t;
 
+  using GeometryId = uint8_t;
+
   using ObjId = uint32_t;
 
   using SignId = std::string;

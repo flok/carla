@@ -46,6 +46,7 @@ namespace parser {
 
   struct Geometry {
     RoadId road_id      { 0u };
+    int    geometry_id  { 0u };
     double s            { 0.0 };
     double x            { 0.0 };
     double y            { 0.0 };
@@ -70,11 +71,15 @@ namespace parser {
       pugi::xml_node node_plan_view = node_road.child("planView");
       if (node_plan_view) {
         // all geometry
+        int geometry_id = 0;
         for (pugi::xml_node node_geo : node_plan_view.children("geometry")) {
           Geometry geo;
 
           // get road id
           geo.road_id = node_road.attribute("id").as_uint();
+
+          // create geometry_id
+          geo.geometry_id = geometry_id++;
 
           // get common properties
           geo.s = node_geo.attribute("s").as_double();
