@@ -19,6 +19,7 @@ namespace traffic_manager {
   public:
     uint64_t waypoint_id;
     uint32_t road_id;
+    uint32_t geometry_id;
     uint32_t section_id;
     int32_t lane_id;
     float s;

@@ -46,7 +46,7 @@ namespace traffic_manager {
     // road_id, section_id, lane_id, s
     WriteValue<uint32_t>(out_file, this->road_id);
     WriteValue<uint32_t>(out_file, this->section_id);
-    WriteValue<uint8_t>(out_file, this->geometry_id);
+    WriteValue<uint32_t>(out_file, this->geometry_id);
     WriteValue<int32_t>(out_file, this->lane_id);
     WriteValue<float>(out_file, this->s);
 
@@ -85,7 +85,7 @@ namespace traffic_manager {
     // road_id, section_id, lane_id, s
     ReadValue<uint32_t>(in_file, this->road_id);
     ReadValue<uint32_t>(in_file, this->section_id);
-    ReadValue<uint8_t>(in_file, this->geometry_id);
+    ReadValue<uint32_t>(in_file, this->geometry_id);
     ReadValue<int32_t>(in_file, this->lane_id);
     ReadValue<float>(in_file, this->s);
 
@@ -127,7 +127,7 @@ namespace traffic_manager {
     // road_id, section_id, lane_id, s
     ReadValue<uint32_t>(content, start, this->road_id);
     ReadValue<uint32_t>(content, start, this->section_id);
-    ReadValue<uint8_t>(content, start, this->geometry_id);
+    ReadValue<uint32_t>(content, start, this->geometry_id);
     ReadValue<int32_t>(content, start, this->lane_id);
     ReadValue<float>(content, start, this->s);
 

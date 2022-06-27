@@ -15,6 +15,7 @@ namespace opendrive {
 namespace parser {
 
   using RoadId = road::RoadId;
+  using GeometryId = road::GeometryId;
 
   struct GeometryArc {
     double curvature  { 0.0 };
@@ -46,7 +47,7 @@ namespace parser {
 
   struct Geometry {
     RoadId road_id      { 0u };
-    int    geometry_id  { 0u };
+    GeometryId geometry_id  { 0u };
     double s            { 0.0 };
     double x            { 0.0 };
     double y            { 0.0 };
