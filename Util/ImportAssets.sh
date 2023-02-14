@@ -4,7 +4,7 @@
 # -- Parse arguments -----------------------------------------------------------
 # ==============================================================================
 
-DOC_STRING="Unpack and copy over CarlaUE4's Exported Assets"
+DOC_STRING="Unpack and copy over CarlaUE5's Exported Assets"
 
 USAGE_STRING="Usage: $0 [-h|--help] [-d|--dir] <outdir>"
 

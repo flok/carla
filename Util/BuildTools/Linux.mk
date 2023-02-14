@@ -4,18 +4,18 @@ help:
 	@less ${CARLA_BUILD_TOOLS_FOLDER}/Linux.mk.help
 
 launch: LibCarla.server.release
-	@${CARLA_BUILD_TOOLS_FOLDER}/BuildCarlaUE4.sh --build --launch $(ARGS)
+	@${CARLA_BUILD_TOOLS_FOLDER}/BuildCarlaUE5.sh --build --launch $(ARGS)
 
 launch-only:
-	@${CARLA_BUILD_TOOLS_FOLDER}/BuildCarlaUE4.sh --launch $(ARGS)
+	@${CARLA_BUILD_TOOLS_FOLDER}/BuildCarlaUE5.sh --launch $(ARGS)
 
-import: CarlaUE4Editor PythonAPI
+import: CarlaUE5Editor PythonAPI
 	@${CARLA_BUILD_TOOLS_FOLDER}/Import.sh $(ARGS)
 
-package: CarlaUE4Editor PythonAPI
+package: CarlaUE5Editor PythonAPI
 	@${CARLA_BUILD_TOOLS_FOLDER}/Package.sh $(ARGS)
 
-package.rss: CarlaUE4Editor PythonAPI.rss.rebuild
+package.rss: CarlaUE5Editor PythonAPI.rss.rebuild
 	@${CARLA_BUILD_TOOLS_FOLDER}/Package.sh $(ARGS)
 
 docs:
@@ -26,20 +26,20 @@ clean.LibCarla:
 	@${CARLA_BUILD_TOOLS_FOLDER}/BuildLibCarla.sh --clean
 clean.PythonAPI:
 	@${CARLA_BUILD_TOOLS_FOLDER}/BuildPythonAPI.sh --clean
-clean.CarlaUE4Editor:
-	@${CARLA_BUILD_TOOLS_FOLDER}/BuildCarlaUE4.sh --clean
+clean.CarlaUE5Editor:
+	@${CARLA_BUILD_TOOLS_FOLDER}/BuildCarlaUE5.sh --clean
 clean.osm2odr:
 	@${CARLA_BUILD_TOOLS_FOLDER}/BuildOSM2ODR.sh --clean
-clean: clean.CarlaUE4Editor clean.PythonAPI clean.LibCarla clean.osm2odr
+clean: clean.CarlaUE5Editor clean.PythonAPI clean.LibCarla clean.osm2odr
 
 rebuild: setup
 	@${CARLA_BUILD_TOOLS_FOLDER}/BuildLibCarla.sh --rebuild
 	@${CARLA_BUILD_TOOLS_FOLDER}/BuildOSM2ODR.sh --rebuild
 	@${CARLA_BUILD_TOOLS_FOLDER}/BuildPythonAPI.sh --rebuild $(ARGS)
-	@${CARLA_BUILD_TOOLS_FOLDER}/BuildCarlaUE4.sh --rebuild $(ARGS)
+	@${CARLA_BUILD_TOOLS_FOLDER}/BuildCarlaUE5.sh --rebuild $(ARGS)
 
 hard-clean:
-	@${CARLA_BUILD_TOOLS_FOLDER}/BuildCarlaUE4.sh --hard-clean
+	@${CARLA_BUILD_TOOLS_FOLDER}/BuildCarlaUE5.sh --hard-clean
 	@${CARLA_BUILD_TOOLS_FOLDER}/BuildOSM2ODR.sh --clean
 	@${CARLA_BUILD_TOOLS_FOLDER}/BuildPythonAPI.sh --clean
 	@${CARLA_BUILD_TOOLS_FOLDER}/BuildLibCarla.sh --clean
@@ -79,8 +79,8 @@ examples:
 run-examples:
 	@for D in ${CARLA_EXAMPLES_FOLDER}/*; do [ -d "$${D}" ] && make -C $${D} run.only; done
 
-CarlaUE4Editor: LibCarla.server.release
-	@${CARLA_BUILD_TOOLS_FOLDER}/BuildCarlaUE4.sh --build $(ARGS)
+CarlaUE5Editor: LibCarla.server.release
+	@${CARLA_BUILD_TOOLS_FOLDER}/BuildCarlaUE5.sh --build $(ARGS)
 
 .PHONY: PythonAPI
 PythonAPI: LibCarla.client.release osm2odr

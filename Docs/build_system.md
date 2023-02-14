@@ -2,7 +2,7 @@
 
 * [__Setup__](#setup)  
 * [__LibCarla__](#libcarla)  
-* [__CarlaUE4 and Carla plugin__](#carlaue4-and-carla-plugin)  
+* [__CarlaUE5 and Carla plugin__](#CarlaUE5-and-carla-plugin)  
 * [__PythonAPI__](#pythonapi)
     - [Versions 0.9.12+](#versions-0912)
     - [Versions prior to 0.9.12](#versions-prior-to-0912)
@@ -58,14 +58,14 @@ Two configurations:
 
 
 ---
-## CarlaUE4 and Carla plugin
+## CarlaUE5 and Carla plugin
 
-Both compiled at the same step with Unreal Engine build tool. They require the `UE4_ROOT` environment variable set.
+Both compiled at the same step with Unreal Engine build tool. They require the `UE5_ROOT` environment variable set.
 
 Command
 
 ```sh
-make CarlaUE4Editor
+make CarlaUE5Editor
 ```
 
 To launch Unreal Engine's Editor run

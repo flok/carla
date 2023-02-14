@@ -175,11 +175,11 @@ The assets will be downloaded and extracted to the appropriate location.
 To download the assets for a __specific version__ of CARLA:
 
 1. From the root CARLA directory, navigate to `\Util\ContentVersions.txt`. This document contains the links to the assets for all CARLA releases. 
-2. Extract the assets in `Unreal\CarlaUE4\Content\Carla`. If the path doesn't exist, create it.  
+2. Extract the assets in `Unreal\CarlaUE5\Content\Carla`. If the path doesn't exist, create it.  
 3. Extract the file with a command similar to the following:
 
 ```sh
-        tar -xvzf <assets_file_name>.tar.gz.tar -C C:\path\to\carla\Unreal\CarlaUE4\Content\Carla
+        tar -xvzf <assets_file_name>.tar.gz.tar -C C:\path\to\carla\Unreal\CarlaUE5\Content\Carla
 ```
 
 ### Set Unreal Engine environment variable
@@ -189,7 +189,7 @@ For CARLA to find the correct installation of Unreal Engine, we need to set the 
 To set the variable for this session only:
 
 ```sh
-    export UE4_ROOT=~/UnrealEngine_4.26
+    export UE5_ROOT=~/UnrealEngine_4.26
 ```
 
 To set the variable so it persists across sessions:
@@ -206,7 +206,7 @@ __1.__ Open `~/.bashrc` or `./profile`.
 __2.__ Add the following line to the bottom of the file: 
 
 ```sh
-    export UE4_ROOT=~/UnrealEngine_4.26 
+    export UE5_ROOT=~/UnrealEngine_4.26 
 ```
 
 __3.__ Save the file and reset the terminal.  

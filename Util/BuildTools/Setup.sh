@@ -795,10 +795,10 @@ if ${USE_PYTORCH} ; then
   cp -p ${LIBTORCHSCATTER_LIB}/*.so ${LIBCARLA_INSTALL_SERVER_FOLDER}/lib/
   cp -p ${LIBTORCHCLUSTER_LIB}/*.so ${LIBCARLA_INSTALL_SERVER_FOLDER}/lib/
   
-  mkdir -p ${CARLAUE4_PLUGIN_ROOT_FOLDER}/Binaries/Linux/
-  cp -p ${LIBTORCH_LIB}/*.so* ${CARLAUE4_PLUGIN_ROOT_FOLDER}/Binaries/Linux/
-  cp -p ${LIBTORCHSCATTER_LIB}/*.so* ${CARLAUE4_PLUGIN_ROOT_FOLDER}/Binaries/Linux/
-  cp -p ${LIBTORCHCLUSTER_LIB}/*.so* ${CARLAUE4_PLUGIN_ROOT_FOLDER}/Binaries/Linux/
+  mkdir -p ${CarlaUE5_PLUGIN_ROOT_FOLDER}/Binaries/Linux/
+  cp -p ${LIBTORCH_LIB}/*.so* ${CarlaUE5_PLUGIN_ROOT_FOLDER}/Binaries/Linux/
+  cp -p ${LIBTORCHSCATTER_LIB}/*.so* ${CarlaUE5_PLUGIN_ROOT_FOLDER}/Binaries/Linux/
+  cp -p ${LIBTORCHCLUSTER_LIB}/*.so* ${CarlaUE5_PLUGIN_ROOT_FOLDER}/Binaries/Linux/
 fi
 
 

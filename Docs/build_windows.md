@@ -150,16 +150,16 @@ Download the __latest__ assets to work with the current version of CARLA by runn
     Update.bat
 ```
 
-The assets will be downloaded and extracted to the appropriate location if have 7zip installed. If you do not have this software installed, you will need to manually extract the file contents to `Unreal\CarlaUE4\Content\Carla`.
+The assets will be downloaded and extracted to the appropriate location if have 7zip installed. If you do not have this software installed, you will need to manually extract the file contents to `Unreal\CarlaUE5\Content\Carla`.
 
 To download the assets for a __specific version__ of CARLA:
 
 1. From the root CARLA directory, navigate to `\Util\ContentVersions.txt`. This document contains the links to the assets for all CARLA releases. 
-2. Extract the assets in `Unreal\CarlaUE4\Content\Carla`. If the path doesn't exist, create it.  
+2. Extract the assets in `Unreal\CarlaUE5\Content\Carla`. If the path doesn't exist, create it.  
 3. Extract the file with a command similar to the following:
 
 ```sh
-    tar -xvzf <assets_file_name>.tar.gz.tar -C C:\path\to\carla\Unreal\CarlaUE4\Content\Carla
+    tar -xvzf <assets_file_name>.tar.gz.tar -C C:\path\to\carla\Unreal\CarlaUE5\Content\Carla
 ```
 
 ### Set Unreal Engine environment variable
@@ -171,7 +171,7 @@ To set the environment variable:
 1. Open Windows Control Panel and go to `Advanced System Settings` or search for `Advanced System Settings` in the Windows search bar.  
 2. On the `Advanced` panel open `Environment Variables...`.  
 3. Click `New...` to create the variable.  
-4. Name the variable `UE4_ROOT` and choose the path to the installation folder of the desired Unreal Engine installation.  
+4. Name the variable `UE5_ROOT` and choose the path to the installation folder of the desired Unreal Engine installation.  
 
 
 ### Build CARLA

@@ -56,8 +56,8 @@ done
 # ==============================================================================
 source $(dirname "$0")/Environment.sh
 
-if [ ! -d "${UE4_ROOT}" ]; then
-  fatal_error "UE4_ROOT is not defined, or points to a non-existent directory, please set this environment variable."
+if [ ! -d "${UE5_ROOT}" ]; then
+  fatal_error "UE5_ROOT is not defined, or points to a non-existent directory, please set this environment variable."
 fi
 
 if [ ! -n "${PACKAGES}" ] ; then
@@ -93,13 +93,13 @@ log "Packaging version '${REPOSITORY_TAG}' (${PACKAGE_CONFIG})."
 
 if ${DO_CARLA_RELEASE} ; then
 
-  pushd "${CARLAUE4_ROOT_FOLDER}" >/dev/null
+  pushd "${CarlaUE5_ROOT_FOLDER}" >/dev/null
 
   if ${USE_CARSIM} ; then
-    python ${PWD}/../../Util/BuildTools/enable_carsim_to_uproject.py -f="CarlaUE4.uproject" -e
+    python ${PWD}/../../Util/BuildTools/enable_carsim_to_uproject.py -f="CarlaUE5.uproject" -e
     echo "CarSim ON" > ${PWD}/Config/CarSimConfig.ini
   else
-    python ${PWD}/../../Util/BuildTools/enable_carsim_to_uproject.py -f="CarlaUE4.uproject"
+    python ${PWD}/../../Util/BuildTools/enable_carsim_to_uproject.py -f="CarlaUE5.uproject"
     echo "CarSim OFF" > ${PWD}/Config/CarSimConfig.ini
   fi
 
@@ -108,8 +108,8 @@ if ${DO_CARLA_RELEASE} ; then
   rm -Rf ${RELEASE_BUILD_FOLDER}
   mkdir -p ${RELEASE_BUILD_FOLDER}
 
-  ${UE4_ROOT}/Engine/Build/BatchFiles/RunUAT.sh BuildCookRun \
-      -project="${PWD}/CarlaUE4.uproject" \
+  ${UE5_ROOT}/Engine/Build/BatchFiles/RunUAT.sh BuildCookRun \
+      -project="${PWD}/CarlaUE5.uproject" \
       -nocompileeditor -nop4 -cook -stage -archive -package -iterate \
       -clientconfig=${PACKAGE_CONFIG} -ue4exe=UE4Editor \
       -prereqs -targetplatform=Linux -build -utf8output \
@@ -167,8 +167,8 @@ if ${DO_CARLA_RELEASE} ; then
     copy_if_changed "./Plugins/" "${DESTINATION}/Plugins/"
   fi
 
-  copy_if_changed "./Unreal/CarlaUE4/Content/Carla/HDMaps/*.pcd" "${DESTINATION}/HDMaps/"
-  copy_if_changed "./Unreal/CarlaUE4/Content/Carla/HDMaps/Readme.md" "${DESTINATION}/HDMaps/README"
+  copy_if_changed "./Unreal/CarlaUE5/Content/Carla/HDMaps/*.pcd" "${DESTINATION}/HDMaps/"
+  copy_if_changed "./Unreal/CarlaUE5/Content/Carla/HDMaps/Readme.md" "${DESTINATION}/HDMaps/README"
 
   popd >/dev/null
 
@@ -189,7 +189,7 @@ if ${DO_CARLA_RELEASE} && ${DO_TARBALL} ; then
 
   rm -f ./Manifest_NonUFSFiles_Linux.txt
   rm -f ./Manifest_UFSFiles_Linux.txt
-  rm -Rf ./CarlaUE4/Saved
+  rm -Rf ./CarlaUE5/Saved
   rm -Rf ./Engine/Saved
 
   tar -czf ${DESTINATION} *
@@ -214,8 +214,8 @@ fi
 # -- Cook other packages -------------------------------------------------------
 # ==============================================================================
 
-PACKAGE_PATH_FILE=${CARLAUE4_ROOT_FOLDER}/Content/PackagePath.txt
-MAP_LIST_FILE=${CARLAUE4_ROOT_FOLDER}/Content/MapPathsLinux.txt
+PACKAGE_PATH_FILE=${CarlaUE5_ROOT_FOLDER}/Content/PackagePath.txt
+MAP_LIST_FILE=${CarlaUE5_ROOT_FOLDER}/Content/MapPathsLinux.txt
 
 for PACKAGE_NAME in "${PACKAGES[@]}" ; do if [[ ${PACKAGE_NAME} != "Carla" ]] ; then
 
@@ -229,16 +229,16 @@ for PACKAGE_NAME in "${PACKAGES[@]}" ; do if [[ ${PACKAGE_NAME} != "Carla" ]] ; 
 
   BUILD_FOLDER=${CARLA_DIST_FOLDER}/${PACKAGE_NAME}_${REPOSITORY_TAG}
   DESTINATION=${BUILD_FOLDER_TARGET}.tar
-  PACKAGE_PATH=${CARLAUE4_ROOT_FOLDER}/Content/${PACKAGE_NAME}
+  PACKAGE_PATH=${CarlaUE5_ROOT_FOLDER}/Content/${PACKAGE_NAME}
 
   mkdir -p ${BUILD_FOLDER}
 
   log "Cooking package '${PACKAGE_NAME}'..."
 
-  pushd "${CARLAUE4_ROOT_FOLDER}" > /dev/null
+  pushd "${CarlaUE5_ROOT_FOLDER}" > /dev/null
 
   # Prepare cooking of package
-  ${UE4_ROOT}/Engine/Binaries/Linux/UE4Editor "${CARLAUE4_ROOT_FOLDER}/CarlaUE4.uproject" \
+  ${UE5_ROOT}/Engine/Binaries/Linux/UE4Editor "${CarlaUE5_ROOT_FOLDER}/CarlaUE5.uproject" \
       -run=PrepareAssetsForCooking -PackageName=${PACKAGE_NAME} -OnlyPrepareMaps=false
 
   PACKAGE_FILE=$(<${PACKAGE_PATH_FILE})
@@ -253,7 +253,7 @@ for PACKAGE_NAME in "${PACKAGES[@]}" ; do if [[ ${PACKAGE_NAME} != "Carla" ]] ; 
   for MAP in "${MAP_LIST[@]}"; do
     if (($(($TOTAL+${#MAP})) > $MAX_STRINGLENGTH)); then
       echo "Cooking $MAP_STRING"
-      ${UE4_ROOT}/Engine/Binaries/Linux/UE4Editor "${CARLAUE4_ROOT_FOLDER}/CarlaUE4.uproject" \
+      ${UE5_ROOT}/Engine/Binaries/Linux/UE4Editor "${CarlaUE5_ROOT_FOLDER}/CarlaUE5.uproject" \
           -run=cook -map="${MAP_STRING}" -cooksinglepackage -targetplatform="LinuxNoEditor" \
           -OutputDir="${BUILD_FOLDER}" -iterate
       MAP_STRING=""
@@ -263,7 +263,7 @@ for PACKAGE_NAME in "${PACKAGES[@]}" ; do if [[ ${PACKAGE_NAME} != "Carla" ]] ; 
     TOTAL=$(($TOTAL+${#MAP}))
   done
   if (($TOTAL > 0)); then
-    ${UE4_ROOT}/Engine/Binaries/Linux/UE4Editor "${CARLAUE4_ROOT_FOLDER}/CarlaUE4.uproject" \
+    ${UE5_ROOT}/Engine/Binaries/Linux/UE4Editor "${CarlaUE5_ROOT_FOLDER}/CarlaUE5.uproject" \
         -run=cook -map="${MAP_STRING}" -cooksinglepackage -targetplatform="LinuxNoEditor" \
         -OutputDir="${BUILD_FOLDER}" -iterate
   fi
@@ -278,8 +278,8 @@ for PACKAGE_NAME in "${PACKAGES[@]}" ; do if [[ ${PACKAGE_NAME} != "Carla" ]] ; 
 
   pushd "${BUILD_FOLDER}" > /dev/null
 
-  SUBST_PATH="${BUILD_FOLDER}/CarlaUE4"
-  SUBST_FILE="${PACKAGE_FILE/${CARLAUE4_ROOT_FOLDER}/${SUBST_PATH}}"
+  SUBST_PATH="${BUILD_FOLDER}/CarlaUE5"
+  SUBST_FILE="${PACKAGE_FILE/${CarlaUE5_ROOT_FOLDER}/${SUBST_PATH}}"
 
   # Copy the package config file to package
   mkdir -p "$(dirname ${SUBST_FILE})" && cp "${PACKAGE_FILE}" "$_"
@@ -290,13 +290,13 @@ for PACKAGE_NAME in "${PACKAGES[@]}" ; do if [[ ${PACKAGE_NAME} != "Carla" ]] ; 
   read -ra ADDR <<< "$MAPS_TO_COOK"
   for i in "${ADDR[@]}"; do # access each element of array
     
-    XODR_FILE_PATH="${CARLAUE4_ROOT_FOLDER}/Content${i:5}"
+    XODR_FILE_PATH="${CarlaUE5_ROOT_FOLDER}/Content${i:5}"
     MAP_NAME=${XODR_FILE_PATH##*/}
-    XODR_FILE=$(find "${CARLAUE4_ROOT_FOLDER}/Content" -name "${MAP_NAME}.xodr" -print -quit)
+    XODR_FILE=$(find "${CarlaUE5_ROOT_FOLDER}/Content" -name "${MAP_NAME}.xodr" -print -quit)
 
     if [ -f "${XODR_FILE}" ] ; then
 
-      SUBST_FILE="${XODR_FILE/${CARLAUE4_ROOT_FOLDER}/${SUBST_PATH}}"
+      SUBST_FILE="${XODR_FILE/${CarlaUE5_ROOT_FOLDER}/${SUBST_PATH}}"
 
       # Copy the package config file to package
       mkdir -p "$(dirname ${SUBST_FILE})" && cp "${XODR_FILE}" "$_"
@@ -304,13 +304,13 @@ for PACKAGE_NAME in "${PACKAGES[@]}" ; do if [[ ${PACKAGE_NAME} != "Carla" ]] ; 
     fi
 
     # binary files for navigation and traffic manager
-    BIN_FILE_PATH="${CARLAUE4_ROOT_FOLDER}/Content${i:5}"
+    BIN_FILE_PATH="${CarlaUE5_ROOT_FOLDER}/Content${i:5}"
     MAP_NAME=${BIN_FILE_PATH##*/}
-    find "${CARLAUE4_ROOT_FOLDER}/Content" -name "${MAP_NAME}.bin" -print0 | while read -d $'\0' BIN_FILE
+    find "${CarlaUE5_ROOT_FOLDER}/Content" -name "${MAP_NAME}.bin" -print0 | while read -d $'\0' BIN_FILE
     do
       if [ -f "${BIN_FILE}" ] ; then
 
-        SUBST_FILE="${BIN_FILE/${CARLAUE4_ROOT_FOLDER}/${SUBST_PATH}}"
+        SUBST_FILE="${BIN_FILE/${CarlaUE5_ROOT_FOLDER}/${SUBST_PATH}}"
 
         # Copy the package config file to package
         mkdir -p "$(dirname ${SUBST_FILE})" && cp "${BIN_FILE}" "$_"
@@ -318,10 +318,10 @@ for PACKAGE_NAME in "${PACKAGES[@]}" ; do if [[ ${PACKAGE_NAME} != "Carla" ]] ; 
     done
   done
 
-    rm -Rf "./CarlaUE4/Metadata"
-    rm -Rf "./CarlaUE4/Plugins"
-    rm -Rf "./CarlaUE4/Content/${PACKAGE_NAME}/Maps/${PROPS_MAP_NAME}"
-    rm -f "./CarlaUE4/AssetRegistry.bin"
+    rm -Rf "./CarlaUE5/Metadata"
+    rm -Rf "./CarlaUE5/Plugins"
+    rm -Rf "./CarlaUE5/Content/${PACKAGE_NAME}/Maps/${PROPS_MAP_NAME}"
+    rm -f "./CarlaUE5/AssetRegistry.bin"
 
   if ${DO_TARBALL} ; then
   

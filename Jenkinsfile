@@ -35,7 +35,7 @@ pipeline
                     agent { label "ubuntu && build && ${JOB_ID}" }
                     environment
                     {
-                        UE4_ROOT = '/home/jenkins/UnrealEngine_4.26'
+                        UE5_ROOT = '/home/jenkins/UnrealEngine_4.26'
                     }
                     stages
                     {
@@ -43,7 +43,7 @@ pipeline
                         {
                             steps
                             {
-                                sh 'git update-index --skip-worktree Unreal/CarlaUE4/CarlaUE4.uproject'
+                                sh 'git update-index --skip-worktree Unreal/CarlaUE5/CarlaUE5.uproject'
                                 sh 'make setup ARGS="--python-version=3.7,2 --target-wheel-platform=manylinux_2_27_x86_64 --chrono"'
                             }
                         }
@@ -53,7 +53,7 @@ pipeline
                             {
                                 sh 'make LibCarla'
                                 sh 'make PythonAPI ARGS="--python-version=3.7,2 --target-wheel-platform=manylinux_2_27_x86_64"'
-                                sh 'make CarlaUE4Editor ARGS="--chrono"'
+                                sh 'make CarlaUE5Editor ARGS="--chrono"'
                                 sh 'make plugins'
                                 sh 'make examples'
                             }
@@ -134,7 +134,7 @@ pipeline
                                 unstash name: 'ubuntu_examples'
                                 sh 'tar -xvzf Dist/CARLA*.tar.gz -C Dist/'
                                 // sh 'tar -xvzf Dist/AdditionalMaps*.tar.gz -C Dist/'
-                                sh 'DISPLAY= ./Dist/CarlaUE4.sh -nullrhi -RenderOffScreen --carla-rpc-port=3654 --carla-streaming-port=0 -nosound > CarlaUE4.log &'
+                                sh 'DISPLAY= ./Dist/CarlaUE5.sh -nullrhi -RenderOffScreen --carla-rpc-port=3654 --carla-streaming-port=0 -nosound > CarlaUE5.log &'
                                 sh 'make smoke_tests ARGS="--xml --python-version=3.7,2 --target-wheel-platform=manylinux_2_27_x86_64"'
                                 sh 'make run-examples ARGS="localhost 3654"'
                             }
@@ -142,7 +142,7 @@ pipeline
                             {
                                 always
                                 {
-                                    archiveArtifacts 'CarlaUE4.log'
+                                    archiveArtifacts 'CarlaUE5.log'
                                     junit 'Build/test-results/smoke-tests-*.xml'
                                     deleteDir()
                                     node('master')
@@ -230,7 +230,7 @@ pipeline
                     agent { label "windows && build && ${JOB_ID}" }
                     environment
                     {
-                        UE4_ROOT = 'C:\\UE_4.26'
+                        UE5_ROOT = 'C:\\UE_4.26'
                     }
                     stages
                     {
@@ -240,7 +240,7 @@ pipeline
                             {
                                 bat """
                                     call ../setEnv64.bat
-                                    git update-index --skip-worktree Unreal/CarlaUE4/CarlaUE4.uproject
+                                    git update-index --skip-worktree Unreal/CarlaUE5/CarlaUE5.uproject
                                 """
                                 bat """
                                     call ../setEnv64.bat
@@ -262,7 +262,7 @@ pipeline
                                 """
                                 bat """
                                     call ../setEnv64.bat
-                                    make CarlaUE4Editor ARGS="--chrono"
+                                    make CarlaUE5Editor ARGS="--chrono"
                                 """
                                 bat """
                                     call ../setEnv64.bat

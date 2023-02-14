@@ -20,7 +20,7 @@ CARLA forum</a>
 
 ## Linux build
 
-* ["CarlaUE4.sh" script does not appear when downloading from GitHub.](#carlaue4sh-script-does-not-appear-when-downloading-from-github)
+* ["CarlaUE5.sh" script does not appear when downloading from GitHub.](#CarlaUE5sh-script-does-not-appear-when-downloading-from-github)
 * ["make launch" is not working on Linux.](#make-launch-is-not-working-on-linux)
 * [Cloning the Unreal Engine repository shows an error.](#cloning-the-unreal-engine-repository-shows-an-error)
 * [AttributeError: module 'carla' has no attribute 'Client' when running a script.](#attributeerror-module-carla-has-no-attribute-client-when-running-a-script)
@@ -30,8 +30,8 @@ CARLA forum</a>
 
 ## Windows build
 
-* ["CarlaUE4.exe" does not appear when downloading from GitHub.](#carlaue4exe-does-not-appear-when-downloading-from-github)
-* [CarlaUE4 could not be compiled. Try rebuilding it from source manually.](#carlaue4-could-not-be-compiled-try-rebuilding-it-from-source-manually)
+* ["CarlaUE5.exe" does not appear when downloading from GitHub.](#CarlaUE5exe-does-not-appear-when-downloading-from-github)
+* [CarlaUE5 could not be compiled. Try rebuilding it from source manually.](#CarlaUE5-could-not-be-compiled-try-rebuilding-it-from-source-manually)
 * [CMake error shows even though CMake is properly installed.](#cmake-error-shows-even-though-cmake-is-properly-installed)
 * [Error C2440, C2672: compiler version.](#error-c2440-c2672-compiler-version)
 * ["make launch" is not working on Windows.](#make-launch-is-not-working-on-windows)
@@ -82,11 +82,11 @@ CARLA forum</a>
 
 ## Linux build
 <!-- ======================================================================= -->
-###### "CarlaUE4.sh" script does not appear when downloading from GitHub.
+###### "CarlaUE5.sh" script does not appear when downloading from GitHub.
 
-> There is no `CarlaUE4.sh` script in the source version of CARLA. Follow the [build instructions](build_linux.md) to build CARLA from source.  
+> There is no `CarlaUE5.sh` script in the source version of CARLA. Follow the [build instructions](build_linux.md) to build CARLA from source.  
 > 
-> To run CARLA using `CarlaUE4.sh`, follow the [quick start installation](start_quickstart.md).
+> To run CARLA using `CarlaUE5.sh`, follow the [quick start installation](start_quickstart.md).
 
 <!-- ======================================================================= -->
 
@@ -96,7 +96,7 @@ CARLA forum</a>
 > 
 > * __Run Unreal Engine 4.26.__ Something may have failed when building Unreal Engine. Try running UE editor on its own and check that it is the 4.26 release.  
 > * __Download the assets.__ The server will not be able to run without the visual content. This step is mandatory.  
-> * __UE4_ROOT is not defined.__ The environment variable is not set. Remember to make it persistent session-wide by adding it to the `~/.bashrc` or `~/.profile`. Otherwise it will need to be set for every new shell. Run `export UE4_ROOT=<path_to_unreal_4-26>` to set the variable this time.  
+> * __UE5_ROOT is not defined.__ The environment variable is not set. Remember to make it persistent session-wide by adding it to the `~/.bashrc` or `~/.profile`. Otherwise it will need to be set for every new shell. Run `export UE5_ROOT=<path_to_unreal_4-26>` to set the variable this time.  
 > * __Check dependencies.__ Make sure that everything was installed properly. Maybe one of the commands was skipped, unsuccessful or the dependencies were not suitable for the system.
 > * __Delete CARLA and clone it again.__ Just in case something went wrong. Delete CARLA and clone or download it again.  
 > * __Meet system requirements.__ Ubuntu version should be 16.04 or later. CARLA needs around 170GB of disk space and a dedicated GPU (or at least one with 6GB) to run.
@@ -196,17 +196,17 @@ CARLA forum</a>
 ## Windows build
 <!-- ======================================================================= -->
 
-###### "CarlaUE4.exe" does not appear when downloading from GitHub.
+###### "CarlaUE5.exe" does not appear when downloading from GitHub.
 
-> There is no `CarlaUE4.exe` executable in the source version of CARLA. Follow the [build instructions](build_windows.md) to build CARLA from source. To directly get the `CarlaUE4.exe`, follow the [quick start instructions](start_quickstart.md).  
+> There is no `CarlaUE5.exe` executable in the source version of CARLA. Follow the [build instructions](build_windows.md) to build CARLA from source. To directly get the `CarlaUE5.exe`, follow the [quick start instructions](start_quickstart.md).  
 
 <!-- ======================================================================= -->
 
-###### CarlaUE4 could not be compiled. Try rebuilding it from source manually.
+###### CarlaUE5 could not be compiled. Try rebuilding it from source manually.
 
 > Something went wrong when trying to build CARLA. Rebuild using Visual Studio to discover what happened.  
 >
-> __1.__ Go to `carla/Unreal/CarlaUE4` and right-click the `CarlaUE4.uproject`.  
+> __1.__ Go to `carla/Unreal/CarlaUE5` and right-click the `CarlaUE5.uproject`.  
 > __2.__ Click on __Generate Visual Studio project files__.  
 > __3.__ Open the file generated with Visual Studio 2019.  
 > __4.__ Compile the project with Visual Studio. The shortcut is F7. The build will fail, but the issues found will be shown below.
@@ -386,7 +386,7 @@ CARLA forum</a>
 > This happens from time to time due to Linux updates. There is a special target in the Makefile for this issue. It takes a long time but fixes the issue:
 >
 >      make hard-clean
->      make CarlaUE4Editor
+>      make CarlaUE5Editor
 
 <!-- ======================================================================= -->
 
@@ -394,7 +394,7 @@ CARLA forum</a>
 
 > In Linux, run `make package` in the project folder. The package will include the project, and the Python API modules.  
 >
-> Alternatively, it is possible to compile a binary version of CARLA within Unreal Editor. Open the CarlaUE4 project, go to the menu `File/Package Project`, and select a platform. This may take a while. 
+> Alternatively, it is possible to compile a binary version of CARLA within Unreal Editor. Open the CarlaUE5 project, go to the menu `File/Package Project`, and select a platform. This may take a while. 
 
 <!-- ======================================================================= -->
 
