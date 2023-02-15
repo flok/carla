@@ -99,6 +99,7 @@ public class Carla : ModuleRules
         "Json",
         "JsonUtilities",
         "Landscape",
+		"ChaosVehicles",
         "Slate",
         "SlateCore",
         "PhysicsCore"
