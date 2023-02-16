@@ -33,10 +33,16 @@
 #endif
 //-------------------------------------------
 
+#include "WheeledVehiclePawn.h"
+
 #include <utility>
 
 #include "carla/rpc/VehicleFailureState.h"
 #include "CarlaWheeledVehicle.generated.h"
+
+
+
+
 
 class UBoxComponent;
 
@@ -67,7 +73,7 @@ enum class EVehicleDoor : uint8 {
 
 /// Base class for CARLA wheeled vehicles.
 UCLASS()
-class CARLA_API ACarlaWheeledVehicle : public AWheeledVehicle
+class CARLA_API ACarlaWheeledVehicle : public AWheeledVehiclePawn
 {
   GENERATED_BODY()
 
