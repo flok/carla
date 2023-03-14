@@ -277,6 +277,10 @@ set CMAKE_CONFIG_FILE=%INSTALLATION_DIR%CMakeLists.txt.in
 >>"%CMAKE_CONFIG_FILE%" echo add_definitions(-DHAVE_SNPRINTF)
 >>"%CMAKE_CONFIG_FILE%" echo STRING (REGEX REPLACE "/RTC(su|[1su])" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
 >>"%CMAKE_CONFIG_FILE%" echo.
+>>"%CMAKE_CONFIG_FILE%" echo if(MSVC)
+>>"%CMAKE_CONFIG_FILE%" echo  add_definitions(/MP)
+>>"%CMAKE_CONFIG_FILE%" echo endif()
+>>"%CMAKE_CONFIG_FILE%" echo.
 >>"%CMAKE_CONFIG_FILE%" echo add_definitions(-DBOOST_ERROR_CODE_HEADER_ONLY)
 >>"%CMAKE_CONFIG_FILE%" echo add_definitions(-DLIBCARLA_IMAGE_WITH_PNG_SUPPORT)
 >>"%CMAKE_CONFIG_FILE%" echo.
