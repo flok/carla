@@ -422,7 +422,7 @@ void ALargeMapManager::GenerateMap(FString InAssetsPath)
     }
     FIntVector TileVectorID = FIntVector(FCString::Atoi(*TileName_X), FCString::Atoi(*TileName_Y), 0);
     #if WITH_EDITOR
-      // LM_LOG(Warning, "Tile: %d, %d", TileVectorID.X, TileVectorID.Y);
+      LM_LOG(Warning, "Tile: %d, %d", TileVectorID.X, TileVectorID.Y);
     #endif
     TileID TileId = GetTileID(TileVectorID);
     LoadCarlaMapTile(InAssetsPath + "/" + AssetData.AssetName.ToString(), TileId);

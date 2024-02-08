@@ -28,8 +28,7 @@ arguments = args.paramstring
 if os.name == "nt":
     sys_name = "Win64"
     editor_path = "%s/Engine/Binaries/%s/UE4Editor" % (ue4_path, sys_name)
-    command = [editor_path, uproject_path, run]
-    command.extend(arguments)
+    command = editor_path + " " + uproject_path + " " + run + " " + arguments
     print("Commandlet:", command)
     print("Arguments:", arguments)
     subprocess.check_call(command, shell=True)

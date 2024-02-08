@@ -10,6 +10,7 @@
 #include "Kismet/KismetRenderingLibrary.h"
 #include "KismetProceduralMeshLibrary.h"
 #include "StaticMeshAttributes.h"
+#include "UObject/ConstructorHelpers.h"
 
 #include "Traffic/TrafficLightManager.h"
 #include "Online/CustomFileDownloader.h"
@@ -277,8 +278,8 @@ AActor* UOpenDriveToMap::SpawnActorWithCheckNoCollisions(UClass* ActorClassToSpa
 void UOpenDriveToMap::GenerateTileStandalone(){
   UE_LOG(LogCarlaToolsMapGenerator, Log, TEXT("UOpenDriveToMap::GenerateTileStandalone Function called"));
 
-  ExecuteTileCommandlet();
-
+  this->GenerateTile();
+ 
   UEditorLoadingAndSavingUtils::SaveDirtyPackages(true, true);
   UEditorLevelLibrary::SaveCurrentLevel();
 
@@ -286,13 +287,13 @@ void UOpenDriveToMap::GenerateTileStandalone(){
 
 void UOpenDriveToMap::GenerateTile(){
 
-  if( FilePath.IsEmpty() ){
-    UE_LOG(LogCarlaToolsMapGenerator, Warning, TEXT("UOpenDriveToMap::GenerateTile(): Failed to load %s"), *FilePath );
+  if (FilePath.IsEmpty()) {
+    UE_LOG(LogCarlaToolsMapGenerator, Warning, TEXT("UOpenDriveToMap::GenerateTile(): Failed to load %s"), *FilePath);
     return;
   }
 
   FString FileContent;
-  UE_LOG(LogCarlaToolsMapGenerator, Warning, TEXT("UOpenDriveToMap::GenerateTile(): File to load %s"), *FilePath );
+  UE_LOG(LogCarlaToolsMapGenerator, Warning, TEXT("UOpenDriveToMap::GenerateTile(): File to load %s"), *FilePath);
   FFileHelper::LoadFileToString(FileContent, *FilePath);
   std::string opendrive_xml = carla::rpc::FromLongFString(FileContent);
   CarlaMap = carla::opendrive::OpenDriveParser::Load(opendrive_xml);
@@ -345,7 +346,7 @@ void UOpenDriveToMap::GenerateTile(){
 
     UEditorLoadingAndSavingUtils::SaveDirtyPackages(true, true);
     UEditorLevelLibrary::SaveCurrentLevel();
-    RemoveFromRoot();
+    UE_LOG(LogCarlaToolsMapGenerator, Log, TEXT("UOpenDriveToMap::GenerateTile():SaveCurrent Level End"));
   }
 }
 
@@ -410,6 +411,7 @@ void UOpenDriveToMap::OpenFileDialog()
 void UOpenDriveToMap::LoadMap()
 {
   if( FilePath.IsEmpty() ){
+    UE_LOG(LogCarlaToolsMapGenerator, Warning, TEXT("UOpenDriveToMap::LoadMap(): Failed to load %s"), *FilePath);
     return;
   }
 
@@ -442,10 +444,13 @@ void UOpenDriveToMap::LoadMap()
       Tile0Offset = LargeMapManager->GetTile0Offset();
       CurrentTilesInXY = FIntVector(0,0,0);
       ULevel* PersistantLevel = UEditorLevelLibrary::GetEditorWorld()->PersistentLevel;
+      UE_LOG(LogCarlaToolsMapGenerator, Warning, TEXT("TIleSize %f NumTilesInX %d, NumTilesInY %d NumTilesInZ %d"), TileSize, NumTilesInXY.X, NumTilesInXY.Y, NumTilesInXY.Z);
       BaseLevelName = LargeMapManager->LargeMapTilePath + "/" + LargeMapManager->LargeMapName;
       do{
         GenerateTileStandalone();
-      }while(GoNextTile());
+      }
+      while(GoNextTile());
+
       ReturnToMainLevel();
     }
   }
@@ -490,10 +495,11 @@ void UOpenDriveToMap::GenerateAll(const boost::optional<carla::road::Map>& Param
   {
     GenerateRoadMesh(ParamCarlaMap, MinLocation, MaxLocation);
     GenerateLaneMarks(ParamCarlaMap, MinLocation, MaxLocation);
-    //GenerateSpawnPoints(ParamCarlaMap);
+   // GenerateSpawnPoints(ParamCarlaMap, MinLocation, MaxLocation);
     CreateTerrain(12800, 256);
     GenerateTreePositions(ParamCarlaMap, MinLocation, MaxLocation);
     GenerationFinished(MinLocation, MaxLocation);
+    UE_LOG(LogCarlaToolsMapGenerator, Log, TEXT("End of GenerateAll"));
   }
 }
 
